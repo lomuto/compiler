@@ -1,5 +1,5 @@
 #include "postfix.h"
-#include "parse_postfix.h"
+#include "parse.h"
 #define BLKSIZE 100
 
 void hasing(char* return_STAT);
@@ -35,30 +35,30 @@ int main(int argc, char* argv[]) {
 
 	close(fd);
 
-	FILE* fp = fopen("assembly.s", "w");		// write ´Â append ÇÏ±â Èûµé¾î¼­ fopen »ç¿ë
+	FILE* fp = fopen("assembly.s", "w");		// write ï¿½ï¿½ append ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½î¼­ fopen ï¿½ï¿½ï¿½
 	
 	fprintf(fp, ".global main\n\nmain:\n");
 
 	clear_STACK();
 	for (int i = 0; i < strlen(return_STAT); i++) {
-		if (!isdigit(*(return_STAT + i))) {		// ÀÐ¾îµéÀÎ return expÀÇ ´Ü¾î°¡ ¿¬»êÀÚÀÏ ¶§
+		if (!isdigit(*(return_STAT + i))) {		// ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ return expï¿½ï¿½ ï¿½Ü¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 			switch (*(return_STAT + i)) {
 			case '+':
 				fprintf(fp, "pop %%rax\n");
 				fprintf(fp, "pop %%rbx\n");
-				fprintf(fp, "add %%rbx, %%rax\n");
+				fprintf(fp, "addq %%rbx, %%rax\n");
 				fprintf(fp, "push %%rax\n");
 					break;
 			case '-':
-				fprintf(fp, "pop %%rax\n");
-				fprintf(fp, "pop %%rbx\n");
-				fprintf(fp, "sub %%rbx, %%rax\n");
+				fprintf(fp, "pop %%rbx\n");				// 31- ==> 3-1
+				fprintf(fp, "pop %%rax\n");				// pop -> 1, pop -> 3
+				fprintf(fp, "subq %%rbx, %%rax\n");		// subq src,dest ==> dest = dest-src
 				fprintf(fp, "push %%rax\n");
 				break;
 			case '*':
 				fprintf(fp, "pop %%rax\n");
 				fprintf(fp, "pop %%rbx\n");
-				fprintf(fp, "mul %%rbx\n");
+				fprintf(fp, "imulq %%rbx, %%rax\n");
 				fprintf(fp, "push %%rax\n");
 				break;
 			}
@@ -90,9 +90,9 @@ int main(int argc, char* argv[]) {
 }
 
 void hasing(char* return_STAT) {
-	for (int i = 0; *(return_STAT + i) != NULL; i++) {
+	for (int i = 0; *(return_STAT + i) != '\0'; i++) {
 		if (isalpha(*(return_STAT + i))) {
-			*(return_STAT+i) = *(TABLE + HASH(*(return_STAT + i)-'a'))+'0';
+			*(return_STAT+i) = *(TABLE + *(return_STAT + i)-'a')+'0';
 		}
 	}
 }

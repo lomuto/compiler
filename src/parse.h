@@ -1,13 +1,16 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <string.h>
 #define LEX_LEN 100
 #define MAX_LINE 10
-#define HASH(x) x%5
-#define TABLE_SIZE 5
 
-int TABLE[TABLE_SIZE] = { 0, };
+int* TABLE;
+
+int HASH(int size, char var){
+	return (var-'a')%size;
+}
 
 void parse(char* EXP,char* return_STAT) {
 	char var[20];
@@ -23,12 +26,17 @@ void parse(char* EXP,char* return_STAT) {
 	}
 	*(var + cnt) = '\0';
 
+	int size = cnt/2;
+	TABLE = calloc(size,sizeof(int));
+
+
+
 	temp = strtok(NULL, " =;\n");
 	strcpy(return_STAT, temp);
 
 	cnt = 0;
-	for (int i = 0; i < TABLE_SIZE; i++) {
-		*(TABLE + HASH(*(var + cnt) - 'a')) = *(var + cnt + 1)-'0';
+	for (int i = 0; i < size; i++) {
+		*(TABLE + HASH(size,*(var + cnt))) = *(var + cnt + 1)-'0';
 		cnt += 2;
 	}
 
