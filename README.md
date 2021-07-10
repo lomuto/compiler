@@ -8,25 +8,25 @@ Tiny compiler, compiles C-syntax based code with pure written data structures.
 
 ## Process
 
-### input
+input
 
 ![input](./images/input.PNG)
 
 </br>
 
-### parse variables and its initialized value with delimiters and `return` syntax
+parse variables and its initialized value with delimiters and `return` syntax
 
 ![parse](./images/parse.PNG)
 
 </br>
 
-### Set **Non collision** hash table with **key** for _variable's name_ and **value** for _its value_
+Set **Non collision** hash table with **key** for _variable's name_ and **value** for _its value_
 
 ![hash](./images/hashTable.PNG)
 
 </br>
    
-### Set infix return expression to postfix expression, then create expression tree.   
+ Set infix return expression to postfix expression, then create expression tree.   
    
 ![infix](./images/infix.PNG) ![postfix](./images/postfix.PNG)   
    
@@ -34,23 +34,23 @@ Tiny compiler, compiles C-syntax based code with pure written data structures.
    
 </br>
    
-### compile to assembly code with assembly generator with expression tree
+ compile to assembly code with assembly generator with expression tree
    
 ![assembly](./images/assembly.PNG)   
    
 </br>
    
-### process will return its calculated value to OS
+ process will return its calculated value to OS
    
-![pcbStack](./images/pcbStack.PNG)   
+![pcbStack](./images/pcbStack.PNG)
 
 ![rax](./images/rax.PNG)
-   
-![os](./images/os.PNG)   
-   
+
+![os](./images/os.PNG)
+
 </br>
    
-### verify return value with `echo $?` command
+ verify return value with `echo $?` command
    
 ![verify](./images/verify.PNG)
    
