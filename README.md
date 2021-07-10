@@ -42,7 +42,9 @@ Tiny compiler, compiles C-syntax based code with pure written data structures.
    
 ### process will return its calculated value to OS
    
-![pcbStack](./images/pcbStack.PNG) ![rax](./images/rax.PNG)
+![pcbStack](./images/pcbStack.PNG)   
+
+![rax](./images/rax.PNG)
    
 ![os](./images/os.PNG)   
    
