@@ -55,4 +55,4 @@ Tiny compiler, compiles C-syntax based code with pure written data structures.
 </br>
    
 ## Run
-`$ compiler <code> <execute file name>`
+`$ compiler <code> <output file name>`
